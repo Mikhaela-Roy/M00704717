@@ -16,7 +16,7 @@ def snake():
     for i in range(0,360,60): #0,60,120,180,240,300 (beginning of each row)
         food.append(random.randint(i,i+60)) #food item, 1 per row
     for x in food: #every food item gets a colour:
-        leds[i] = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+        leds[x] = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
 
     client.put_pixels(leds) #display generated food
     client.put_pixels(leds)
