@@ -6,31 +6,34 @@ leds = [(0,0,0)]*360
 
 client = opc.Client('localhost:7890')
 client.put_pixels(leds)
+client.put_pixels(leds)
 
 def snake():
-    led = 0
-    add = 40
-    body = []
+    body = 5
+    #colour = random.randint(0,255)
+    food = []
+
+    for i in range(0,360,60):
+        food.append(random.randint(i,i+60))
+    for x in food:
+        leds[i] = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+
+    client.put_pixels(leds)
+    client.put_pixels(leds)
+    sleep(0.1)
     
-    while led < 55:
-        for rows in range(6): #lights three led
-            leds[led + rows*1] = (200,100,255) #change three led colour
-            leds[led + rows*2] = (0,0,0) #background back to default
-            leds[add] = (255,0,0)
-            if led > 40 and led < 55:
-                for column in range(6):
-                    #leds[add] = (0,0,0)
-                    #leds[led + rows*1] = (200,100,255)
-                    leds[add + column*1] = (255,0,0) #orange 
-                    #leds[led + rows*1] = (255,255,255) #white
-                    leds[add + column*2] = (0,0,0) #
-                    #leds[led + rows*2] = (0,0,0)
-                    
-                leds[led + column] = (255,0,0)
-                add += 1
-                
+    while body < 355: # when body is 
+        leds[body + 5] = (200,100,255) #5 led is created
+        leds[body] = (0,0,0) #background back to default
+        
+##        if body == 354: #body is at the maximum led reset the value back to 0
+##            body = 0
+##
+##        leds[359-body] = (0,0,0) #change the led from the back to default
+            
         client.put_pixels(leds)
         sleep(0.1)
-        led += 1
-
+        body += 1
+            
+        
 snake()
