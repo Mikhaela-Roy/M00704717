@@ -1,6 +1,7 @@
 import opc
 from time import *
 import random
+from tkinter.messagebox import askquestion
 
 leds = [(0,0,0)]*360
 
@@ -8,7 +9,14 @@ client = opc.Client('localhost:7890')
 client.put_pixels(leds)
 client.put_pixels(leds)
 
-        
+
+def confirm():
+    answer = askquestion(title = 'Confirmation', message  = 'Do you wish to continue the Snake Animation? ')
+    if answer == 'yes':
+        body = -5
+        food_item()
+        snake()
+         
 def food_item():
     food = [] 
 
@@ -32,16 +40,16 @@ def snake():
         leds[body] = (0,0,0) #background back to default
         
         
-##        if body == 354: #body is at the maximum led reset the value back to 0
-##            body = -5
-##            food_item()
-##            
-##
-##        leds[body - 5] = (0,0,0) #change the led from the back to default
+        if body >= 354: #body is at the maximum led reset the value back to 0
+            confirm()
+
+        leds[body - 5] = (0,0,0) #change the led from the back to default
             
         client.put_pixels(leds)
         sleep(0.1)
         body += 1
 
-        
 snake()
+
+
+
