@@ -5,7 +5,7 @@ from tkinter import *
 from tkinter import messagebox
 
 leds = [(0,0,0)]*360
-
+#empty
 client = opc.Client('localhost:7890')
 client.put_pixels(leds)
 client.put_pixels(leds)
