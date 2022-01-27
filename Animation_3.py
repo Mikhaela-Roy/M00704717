@@ -1,33 +1,38 @@
 import opc
 from time import *
 import random
-from matplotlib import pyplot as plt
-import numpy as ass
-import pylab
-import scipy
+import numpy as np
+import matplotlib.pyplot as plt
 
-x = ass.linspace(2,6,1000)
-y1 = ass.sqrt(1+(abs(x)+1)**2)
-y2 = 3*ass.sqrt(1+(abs(x)/2)**0.5)
-pylab.fill_between(x, y1, color='red')
-pylab.fill_between(x, y2, color='red')
-#pylab.xlim([-2.5, 2.5])
-#pylab.text(0, -0.4, 'Stack Overflow', fontsize=24, fontweight='bold#color='white', horizontalalignment='center')
-pylab.savefig('heart.png')
+leds = [(0,0,0)]*360
 
-##leds = [(0,0,0)]*360
+client = opc.Client('localhost:7890')
+client.put_pixels(leds)
+
+##theta = np.linspace(0, 6, 1000)
 ##
-##client = opc.Client('localhost:7890')
-##client.put_pixels(leds)
+##x = 16*(np.sin(theta)**3)
+##y = 13*np.cos(theta) - 5*np.cos(2*theta) - 2*np.cos(3*theta) - np.cos(4*theta)
 ##
-###Creating equally spaced 100 data in range 0 to 2*pi
-##theta = ass.linspace(0,2*ass.pi,100) 
-##
-###Generating x and y data
-##x = 6*(ass.sin(theta)**2) 
-##y = 3 * ass.cos(theta) - 5* ass.cos(2*theta) - 2 * ass.cos(3*theta) - ass.cos(4*theta)
-##
-###Plotting
+##plt.scatter(x, y, c=y, cmap = plt.cm.Purples, s = 70)
 ##plt.plot(x,y)
-##plt.title('Heart Shape')
 ##plt.show()
+
+##def heart():
+##    
+##    
+##    for i in range(plot_x):
+##        leds[i] = (255,255,255)
+##        client.put_pixels(leds)
+##        sleep(0.1)
+##        for t in range(plot_y):
+##            leds[t] = (255,255,255)
+##            client.put_pixels(leds)
+##            sleep(0.1)
+##
+##        
+##    plt.scatter(x, y, c=y, cmap = plt.cm.Purples, s = 70)
+##    plt.plot(x,y)
+##    plt.show()
+
+    
