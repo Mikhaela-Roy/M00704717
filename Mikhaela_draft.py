@@ -26,8 +26,8 @@ def snake():
         for segment in range(body): # snake body
             #print('colour',colour)
             leds[led+segment] = colour #1 - first iteration - snake at 0-5; 1-6 etc.
-            if led > 0:
-                leds[led-1] = (0,0,0) #background back to default
+##            if led > 0:
+##                leds[led-1] = (0,0,0) #background back to default
                 
             #if body == 11 and 
             client.put_pixels(leds)
