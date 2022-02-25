@@ -25,8 +25,6 @@ iris = [28,29,30,31,87,88,89,90,91,92,147,148,149,150,151,152,207,208,209,210,21
 
 def eye():
     
-    messagebox.showwarning(title = '', message  = 'FLASH WARNING')
-    
     for loop in range(5):    
         for i in range(0,360): #Run from 0 to 359
             
@@ -37,7 +35,6 @@ def eye():
                 leds[i] = (255,255,255) #when the range is between the values listed above change the colour to white
                 client.put_pixels(leds)
                 #sleep(0.1)
-
             
         for x in iris:
             leds[x] = rand_colour #when the range is between the values listed above change colour to the initial random generated colour
@@ -59,7 +56,7 @@ def build():
         for once in range(0,61):
             if once == 60:
                 q -= 1
-                sleep(1)
+                sleep(0.5)
 
             g = once + 60*q
             h = once + (300-60*q)
@@ -76,30 +73,23 @@ def blink():
     inc = 0
     
     for i in range(4):
-        for once in range(0,60):
+        for once in range(0,61):
             if once == 60:
-                sleep(1)
+                sleep(0.5)
+                inc += 1
                 
             c = once + 60*inc
             f = once + (300-60*inc)
                 
-            if c >= 25 and c <=34 or c >= 81 and c <= 98 or c >= 139 and c <= 160 or f >= 197 and f <= 222 or f >= 261 and f <= 278 or f >= 325 and f <= 334:
-                leds[c] = (255,255,255)
+            if c >= 25 and c <=34 or c >= 81 and c <= 98 or c >= 137 and c <= 162 or f >= 197 and f <= 222 or f >= 261 and f <= 278 or f >= 325 and f <= 334:
+                leds[c] = (0,0,0)
                 client.put_pixels(leds)
-                leds[c-60] = (0,0,0)
+                leds[f] = (0,0,0)
                 client.put_pixels(leds)
-                leds[f] = (255,255,255)
-                client.put_pixels(leds)
-                leds[f-60] = (0,0,0)
+                leds[f-60] = (255,255,255)
                 client.put_pixels(leds)
                 
-                
+    answer = messagebox.askquestion(title = 'Confirmation', message  = 'Do you wish to continue? ')
 
-                        
-##    question = input('Would you like to repeat? ')
-##    
-##    if question == 'yes' or question == 'Yes' or question == 'Y':
-##        build()
-        
-blink()
-
+    if answer == 'yes':
+        build()

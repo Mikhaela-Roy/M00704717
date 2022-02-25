@@ -14,7 +14,10 @@ def confirm():
     if answer == 'yes':
         leds[body] = (0,0,0)
         client.put_pixels(leds)
+        led = 0
+        seg = 5
         snake(food_item())
+        
         
 def food_item():
 
@@ -67,7 +70,9 @@ def snake():
             client.put_pixels(leds)
             sleep(0.01)
 
-        if led >= 349:
+        if led == 349:
             confirm()
-        
-snake()
+        elif led == 350:
+            break
+        else:
+            continue
