@@ -12,11 +12,10 @@ client.put_pixels(leds)
 def confirm():
     answer = messagebox.askquestion(title = 'Confirmation', message  = 'Do you wish to continue the Snake Animation? ')
     if answer == 'yes':
+        body = 8
         leds[body] = (0,0,0)
         client.put_pixels(leds)
-        led = 0
-        seg = 5
-        snake(food_item())
+        snake()
         
         
 def food_item():
@@ -24,7 +23,7 @@ def food_item():
     food = []
     l_colour = []
 
-    for i in range(0,360,60):
+    for i in range(0,350,60):
         food.append(random.randint(i,i+60))
     for x in food:
         leds[x] = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
@@ -42,6 +41,7 @@ def food_item():
     
 def snake():
 
+    
     food,colour = food_item()
     
     body = 2
@@ -63,16 +63,18 @@ def snake():
                 if initial != i:
                     initial = change
                     leds[led+seg] = initial
-                    client.put_pixels(leds)  
-                    leds[led] = (0,0,0)
-
+                    client.put_pixels(leds)
+                    
             body += 1
             client.put_pixels(leds)
             sleep(0.01)
-
+            
+        leds[359-body] = (0,0,0)
+        client.put_pixels(leds)
+        
         if led == 349:
             confirm()
-        elif led == 350:
+        elif led == 358:
             break
         else:
             continue

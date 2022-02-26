@@ -48,4 +48,9 @@ def build():
         client.put_pixels(leds)
         sleep(0.1)
         
-    reverse()
+SSSS    reverse()
+    
+build()
+
+
+

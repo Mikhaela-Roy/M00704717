@@ -2,24 +2,24 @@ import opc
 import time
 import random
 
-leds = [(255,0,0)]*360 #[(255,255,255)]*360 White
+leds = [(0,0,0)]*360 #[(255,255,255)]*360 White
 
 client = opc.Client('localhost:7890')
 client.put_pixels(leds)
 client.put_pixels(leds)
 
-#for led in leds: # pick out an element: led = (255,255,255)
-for led in range(60): #pick out indicis: led = 0,1,2,3...
-    leds[led] = (255,0,0)
-    time.sleep(0.1)
-    client.put_pixels(leds)
-
-led = 0
-while led < 60:
-    leds[59-led] = (0,255,0)
-    time.sleep(0.1)
-    client.put_pixels(leds)
-    led = led + 1 #or reverse if you want
+###for led in leds: # pick out an element: led = (255,255,255)
+##for led in range(60): #pick out indicis: led = 0,1,2,3...
+##    leds[led] = (255,0,0)
+##    time.sleep(0.1)
+##    client.put_pixels(leds)
+##
+##led = 0
+##while led < 60:
+##    leds[59-led] = (0,255,0)
+##    time.sleep(0.1)
+##    client.put_pixels(leds)
+##    led = led + 1 #or reverse if you want
 
 led = 0
 while led < 60: #scroll all rows at the same time
