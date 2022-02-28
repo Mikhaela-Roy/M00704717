@@ -19,10 +19,12 @@ for rows in range(60):
     leds[rows+240] = (led+50,led+80,led+0)
     client.put_pixels(leds)  
     sleep(0.1)
-    led += 5
+    led += 1
     
-for rows in range(4):
-    leds[rows+120] = (255,0,0)
-    leds[rows+180] = (255,0,0)
-    client.put_pixels(leds)
-    sleep(0.1)
+for rows in range(60):
+    for i in range(6):
+        leds[i*60 + rows] = (0,150,0)
+        #leds[led + rows] = (255,0,0)
+        
+        client.put_pixels(leds)
+        sleep(0.1)

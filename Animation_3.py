@@ -38,14 +38,15 @@ def build():
     
     while led < 60: #scroll all rows at the same time
         for rows in range(2):
-            leds[led + rows*60] = (255,0,0) #row 1- 0-60
+            leds[led + rows*60] = (led+100,0,0) #row 1- 0-60
         for rows in range(2,4):
-            leds[59-led + rows*60] = (255,0,0)
+            leds[59-led + rows*60] = (led+100,0,0)
         for rows in range(4,6):
-            leds[led + rows*60] = (255,0,0)
+            leds[led + rows*60] = (led+100,0,0)
          
         led += 1
         client.put_pixels(leds)
         sleep(0.1)
         
     reverse()
+build()

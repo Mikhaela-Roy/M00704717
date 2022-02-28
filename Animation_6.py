@@ -42,50 +42,51 @@ def Rock():
         leds[353-rows] = (112,128,144)
         client.put_pixels(leds)
         sleep(0.1)
-
-    for rows in range(1,5):
-        leds[led+46 + rows*60] = (112,128,144)
-        leds[55-led + rows*60] = (112,128,144)
+    for i in range(10):
+        for rows in range(1,5):
+            leds[i+46 + rows*60] = (112,128,144)
+            leds[55-led + rows*60] = (112,128,144)
         client.put_pixels(leds)
         sleep(0.1)
         
-def Scissors():
+Rock()        
+##def Scissors():
+##
+##    led = 0
+##    
+##    for rows in range(3):
+##        leds[led+10 + rows*60] = (255,255,255)
+##        led += 1
+##        client.put_pixels(leds)
+##    for rows in range(3):
+##        leds[led+11 + rows*60] = (255,255,255)
+##        led -= 1
+##        client.put_pixels(leds)
+##    for rows in range(1,6):
+##        leds[led+7 + rows*60] = (255,255,255)
+##        led += 1
+##        client.put_pixels(leds)
+##    for rows in range(1,6):
+##        leds[led+12 + rows*60] = (255,255,255)
+##        led -= 1
+##        client.put_pixels(leds)
+##        
+##    cont = str(input('Would you like to try again? '))
+##    if cont == 'yes' or cont == 'Yes':
+##        decision()
+##    else:
+##        root.destroy()
+##    pass
+##def Paper():
+##    print('paper')
+##    cont = str(input('Would you like to try again? '))
+##    if cont == 'yes' or cont == 'Yes':
+##        decision()
+##    else:
+##        root.destroy()
+##
+##submit = Button(root, text = "Submit", command = decision).grid(row = 4, column = 1)
+##
+##decision()
 
-    led = 0
-    
-    for rows in range(3):
-        leds[led+10 + rows*60] = (255,255,255)
-        led += 1
-        client.put_pixels(leds)
-    for rows in range(3):
-        leds[led+11 + rows*60] = (255,255,255)
-        led -= 1
-        client.put_pixels(leds)
-    for rows in range(1,6):
-        leds[led+7 + rows*60] = (255,255,255)
-        led += 1
-        client.put_pixels(leds)
-    for rows in range(1,6):
-        leds[led+12 + rows*60] = (255,255,255)
-        led -= 1
-        client.put_pixels(leds)
-        
-    cont = str(input('Would you like to try again? '))
-    if cont == 'yes' or cont == 'Yes':
-        decision()
-    else:
-        root.destroy()
-    pass
-def Paper():
-    print('paper')
-    cont = str(input('Would you like to try again? '))
-    if cont == 'yes' or cont == 'Yes':
-        decision()
-    else:
-        root.destroy()
-
-submit = Button(root, text = "Submit", command = decision).grid(row = 4, column = 1)
-
-decision()
-
-root.mainloop()
+#root.mainloop()
