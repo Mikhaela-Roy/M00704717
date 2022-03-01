@@ -15,4 +15,8 @@
 12. A window would pop up displaying a menu where you are able to choose the Animations you wish to see.
 13. Press any of the button you wish to view
 14. Once button is pressed the animation will show in the readopcForStrands simulator
-15. To end the simulation, press the exit button on the top right hand side of the window
+15. You will only be able to run another animation once the execution of the current animation is completed. 
+16. For Animation_2, there will be a message window that will ask the user a question. Click either yes or no button. 
+17. For Animation_5, there will be an input on the Python Shell to fully activate the animation. Answer questions to see the animation.
+18. For Animation_6, is a game where the user will need to choose from a list given to them. They will need to input the choice and animation will run. Once animation is sompleted, another question will be asked. To stop the animation, answer no.
+19. To end the overall simulation, press the exit button on the top right hand side of the window
