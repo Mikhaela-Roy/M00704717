@@ -10,7 +10,7 @@
 7. Once you have done that run the readopcForStrands simulator to be able to run any of the animations.
 8. Make sure the opc python file is present on the folder. This will allow the readopcForStrands to work.
 9. Then go back to the main folder (M00704717) and open Final pyhton code or the CompilationOfAnimation and run
-10. If you would like to see the code, right-click on the mouse and edit on IDLE. Same goes for the Animation files named Animation_1 etc. 
+10. If you would like to see the code, right-click on the mouse and edit on IDLE. Same goes for the Animation files named Animation_1, Animation_2 etc. 
 11. The code in the folder (M00704717) is only compatible with Python 3.0 and above.
 12. A window would pop up displaying a menu where you are able to choose the Animations you wish to see.
 13. Press any of the button you wish to view
