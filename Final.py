@@ -55,7 +55,7 @@ Eye = Button(root, text = 'Eye Animation', command = Animation_2.build).grid(row
 TTT = Button(root, text = 'Curtain Animation', command = Animation_3.build).grid(row = 2, column = 1) 
 Heart = Button(root, text = 'Heart Animation', command = Animation_4.heart).grid(row = 4, column = 1)
 Random = Button(root, text = 'Colour Picker Animation', command = Animation_5.colour_pick).grid(row = 2, column = 2)
-RPM = Button(root, text = 'Rock Paper Scissors Animation', command = Animation_6.Rock).grid(row = 4, column = 2)
+RPM = Button(root, text = 'Rock Paper Scissors Animation', command = Animation_6.decision).grid(row = 4, column = 2)
 
 #closes the loop to run the code within the mainloop
 root.mainloop()

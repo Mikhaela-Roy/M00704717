@@ -98,4 +98,3 @@ def blink():
     #if yes start the building once again
     if answer == 'yes':
         build()
-build()
