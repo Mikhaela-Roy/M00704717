@@ -48,3 +48,5 @@ def build():
         sleep(0.1)
         
     reverse() #call the reverse function to set the simulator off
+    
+build()
