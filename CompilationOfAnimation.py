@@ -3,6 +3,7 @@ from time import *
 import random
 from tkinter import *
 from tkinter import messagebox
+import colorsys
 
 leds = [(0,0,0)]*360
 
@@ -259,45 +260,76 @@ def build1():
     reverse() #call the reverse function to set the simulator off
     
 #---------------------------------------------------------Heart Animation-----------------------------------------------------------------------------------------------
-hearts = [20,21,22,23,32,33,34,35,78,79,80,81,
-         82,83,84,85,89,90,91,92,93,94,95,96,
-         97,139,140,141,142,143,144,145,146,
-         147,148,149,150,151,152,153,154,155,
-         156,200,201,202,203,204,205,206,207,
-         208,209,210,211,212,213,214,264,265,
-         266,267,268,269,270,326,327,328]
+#list of the leds for the parts of the heart
+hearts = [[20,21,22,23],[78,79,80,81,
+         82,83,84,85],[139,140,141,142,143,144,145,146,
+         147],[200,201,202,203,204,205,206,207],[264,265,
+         266,267],[326,327]]
+
+hearts_1 = [[32,33,34,35],[89,90,91,92,93,94,95,96,
+         97],[148,149,150,151,152,153,154,155,
+         156],[208,209,210,211,212,213,214],
+            [268,269,270],[328]]
+
+sort = sorted(hearts + hearts_1) #adds the two lists together and sorts the list from smallest to largest
+
 s = 1.0 ##maximum colour
 v = 1.0 ##maximum brightness
 
 def heart():
+        for rows in range(len(sort)):
+                one = sort[rows]
+                for i in one:
+                    rgb_fractional = colorsys.hsv_to_rgb(random.randint(i-5, i+5)/360.0, s, v) #colorsys returns floats between 0 and 1
+                    r_float = rgb_fractional[0] #extract said floating point numbers
+                    g_float = rgb_fractional[1] 
+                    b_float = rgb_fractional[2]
+
+                    rgb = (r_float*255, g_float*255, b_float*255) #make new tuple with corrected values
+                    leds[i]=rgb
+                    client.put_pixels(leds) #send out
+
+                sleep(0.1) #20ms
+        
+def colour_merge():
 
     reset()
+        
+    led = 0
     
-    rands = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+    for call in range(4): #runs the code four times
+            rand = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
+            
+            for rows in range(len(hearts)): #takes the length of the list
+                    x = hearts[rows] #access the list of the list
+                    for col in x: #col is the indes to acces the value of the lists of the list
+                            leds[col] = (255,0,0) #colour of the led
+                            #leds[col-1] = (200,50,0) #background back to default
                             
-    for i in hearts:
-        rands = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
-        leds[i] = rands
-        
-    client.put_pixels(leds)            
-    sleep(1)
-        
-##        for hue in range(360):
-##            rgb_fractional = colorsys.hsv_to_rgb(random.randint(hue-10, hue+10)/360.0, s, v) #colorsys returns floats between 0 and 1
-##            r_float = rgb_fractional[0] #extract said floating point numbers
-##            g_float = rgb_fractional[1]
-##            b_float = rgb_fractional[2]
-##
-##            rgb = (r_float*255, g_float*255, b_float*255) #make new tuple with corrected values
-##            leds[hue]=rgb
-##            client.put_pixels(leds) #send out
-##
-##            sleep(0.03) #20ms
+                    client.put_pixels(leds)
+                    sleep(0.1)
+                    
+            for rows in range(len(hearts_1)):
+                    y = hearts_1[rows]
+                    for col1 in y:
+                            leds[col1] = (255,255,255) #5 led is
+                            #leds[col1] = (200,50,0) #background back to default
+                            
+                    client.put_pixels(leds)
+                    sleep(0.1)
+
+            for x in range(len(sort)):
+                row = sort[x]
+                for y in row:
+                    leds[y] = (led+255,led+0,led+0) #increments the colour red to white
+                    led += 1 #increases the led for increment of the colour red
+                client.put_pixels(leds)
+                sleep(0.1)
+
+            heart() #after colour_merge function completes heart function is called
 
 #---------------------------------------------------------Colour Wheel Animation-----------------------------------------------------------------------------------------------
 def colour_pick():
-
-    reset()
     
     led = 0
 
@@ -316,6 +348,7 @@ def colour_pick():
             leds[rows] = (0,0,0) #first row to be off except for one
             sleep(0.1)
             client.put_pixels(leds)
+    reset()
 
 #---------------------------------------------------------Rock Paper Scissors Animation---------------------------------------------------------------------------------------------
 
@@ -323,9 +356,9 @@ def vs():
     
     led = 0
     
-    for rows in range(6):
-        leds[led+20 + rows*60] = (255,0,0)
-        led += 1
+    for rows in range(6): #body of the leds
+        leds[led+20 + rows*60] = (255,0,0) #allows for leds to be on each row. +20 
+        led += 1 
         client.put_pixels(leds)
         
     for rows in range(6):
@@ -339,7 +372,7 @@ def vs():
         leds[337-rows] = (255,0,0) #last row
         client.put_pixels(leds)
 
-    for rows in range(2): #acces the middle rows
+    for rows in range(2): #access the middle rows
         leds[led+32 + rows*60] = (255,0,0) #starts from 
         #leds[256-led + rows*60] = (112,128,144)
         client.put_pixels(leds)
@@ -349,6 +382,8 @@ def vs():
         client.put_pixels(leds)
 
 def decision():
+
+    reset()
     
     option = ["R", "P", "S"] #list with the options for rock, paper, scissors
     print('These are your options: ', option) #display option to the user
@@ -476,10 +511,11 @@ def decision():
             sleep(0.1)
             
     #Code below is to show the possibility of winning with different combinations
+    #compares the input of the user and computer against each other
     if computer == choice:
         print("DRAW!")
         
-    elif computer == 'R' and choice == 'S':
+    elif computer == 'R' and choice == 'S': 
         print("COMPUTER WINS!")
 
     elif computer == 'S' and choice == 'R':
@@ -506,15 +542,16 @@ def decision():
         reset()
         decision()
     else:
-        reset()
+        reset() #this allows the screen to go back to default colour
+        
 #Creates a button that indicates the name of the button
 #.grid() is to place the location of the button
 #command calls upon the animation library and its function that I wish to run
 Snake = Button(root, text = 'Snake Animation', command = snake).grid(row = 2, column = 0)
 Eye = Button(root, text = 'Eye Animation', command = build).grid(row = 4, column = 0)
 TTT = Button(root, text = 'Curtain Animation', command = build1).grid(row = 2, column = 1) 
-Heart = Button(root, text = 'Heart Animation', command = heart).grid(row = 4, column = 1)
+Heart = Button(root, text = 'Heart Animation', command = colour_merge).grid(row = 4, column = 1)
 Random = Button(root, text = 'Colour Picker Animation', command = colour_pick).grid(row = 2, column = 2)
 RPM = Button(root, text = 'Rock Paper Scissors Animation', command = decision).grid(row = 4, column = 2)
 
-root.mainloop()
+root.mainloop() #allows the window to run infinite to be able to see the window

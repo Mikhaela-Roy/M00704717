@@ -24,8 +24,6 @@ sort = sorted(hearts + hearts_1) #adds the two lists together and sorts the list
 s = 1.0 ##maximum colour
 v = 1.0 ##maximum brightness
 
-
-
 def heart():
         for rows in range(len(sort)):
                 one = sort[rows]
@@ -45,7 +43,7 @@ def colour_merge():
         
         led = 0
         
-        for call in range(4):
+        for call in range(4): #runs the code four times
                 rand = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
                 
                 for rows in range(len(hearts)): #takes the length of the list
@@ -74,6 +72,6 @@ def colour_merge():
                     client.put_pixels(leds)
                     sleep(0.1)
 
-                heart()
+                heart() #after colour_merge function completes heart function is called
 
 colour_merge()
