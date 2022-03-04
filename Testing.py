@@ -1,5 +1,6 @@
 import opc
 from time import *
+from tkinter import messagebox
 import random
 import colorsys
 
@@ -100,9 +101,30 @@ hearts_1 = [[32,33,34,35],[89,90,91,92,93,94,95,96,
          97],[148,149,150,151,152,153,154,155,
          156],[208,209,210,211,212,213,214],
             [268,269,270],[328]]
+##
+##for i in range(len(hearts)):
+##    x = hearts[i]
+##    for rows in x:
 
-for i in range(len(hearts)):
-    x = hearts[i]
-    for rows in x:
+iris = [28,29,30,31,87,88,89,90,91,92,147,148,149,150,151,152,207,208,209,210,211,212,267,268,269,270,271,272,328,329,330,331]
+
+def eye():
+
+    messagebox.showwarning(title = '', message  = 'FLASH WARNING')
+    for i in range(360):
+        if i >= 25 and i <=34 or i >= 81 and i <= 98 or i >= 139 and i <= 160 or i >= 197 and i <= 222 or i >= 261 and i <= 278 or i >= 325 and i <= 334:
+            leds[i] = (255,255,255) #when the range is between the values listed above change the colour to white
+            client.put_pixels(leds)
+            #sleep(0.1)
+
+    for x in iris:
+        leds[x] = (255,0,0)
+        #sleep(0.1)
+        client.put_pixels(leds)
+                
+
+        client.put_pixels(leds)
+        sleep(0.1)
+        i+=1
         
-        
+eye()

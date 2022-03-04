@@ -137,9 +137,19 @@ def snake():
 #---------------------------------------------------------Eye Animation-----------------------------------------------------------------------------------------------
 iris = [28,29,30,31,87,88,89,90,91,92,147,148,149,150,151,152,207,208,209,210,211,212,267,268,269,270,271,272,328,329,330,331]
 
+def command(*args):
+    print(var.get())
+
+def option():
+    
+    opt = ['Blink','Flash']
+    clicked = StringVar()
+    clicked.set('Eye Animation')
+    drop = OptionMenu(root, clicked, command = command).pack()
+    
 def eye():
     
-    for loop in range(5):    
+    for loop in range(4): #runs the animation 4 times
         for i in range(0,360): #Run from 0 to 359
             
             if i == 360 or i == 0: #beginning random colour and when loop ends restart colour
@@ -177,14 +187,58 @@ def build():
             g = once + 60*q #access row from the top
             h = once + (300-60*q) #access row from the bottom
 
-            #if the values from c and f is within the range, the led should be onn
+            #if the values from c and f is within the range, the led should be on
             if g >= 25 and g <=34 or g >= 81 and g <= 98 or g >= 139 and g <= 160 or h >= 197 and h <= 222 or h >= 261 and h <= 278 or h >= 325 and h <= 334:
                 leds[g] = (255,255,255)
                 client.put_pixels(leds)
                 leds[h] = (255,255,255)
                 client.put_pixels(leds)
-    eye()
+
+    opt = str(input('Choose between F (Flash) or B (Blink): '))
+
+    if opt == 'B':
+        eye()
+    elif opt == 'F':
+        blinking()
+    else:
+        print('Invalid Answer')
+        opt = str(input('Choose between F (Flash) or B (Blink): '))
+            
+
+def blinking():
+    s = 1.0 ##maximum colour
+    v = 1.0 ##maximum brightness
+    rand_colour = (random.randint(0,255),random.randint(0,255),random.randint(0,255)) #random colour
     
+    for i in range(0,360): #Run from 0 to 359
+
+        rgb_fractional = colorsys.hsv_to_rgb(i/360, s, v) #colorsys returns floats between 0 and 1
+        r_float = rgb_fractional[0] #extract said floating point numbers
+        g_float = rgb_fractional[1]
+        b_float = rgb_fractional[2]
+
+        rgb = (r_float*255, g_float*255, b_float*255) #make new tuple with corrected values
+        
+##        if i == 360 or i == 0: #beginning random colour and when loop ends restart colour
+##            rand_colour = (random.randint(0,255),random.randint(0,255),random.randint(0,255)) #random colour
+        
+    
+        if i >= 25 and i <=34 or i >= 81 and i <= 98 or i >= 139 and i <= 160 or i >= 197 and i <= 222 or i >= 261 and i <= 278 or i >= 325 and i <= 334:
+            leds[i] = (255,255,255) #when the range is between the values listed above change the colour to white
+            client.put_pixels(leds)
+            sleep(0.1)
+       
+        if i >= 28 and i <= 31 or i >= 87 and i <= 92 or i >= 147 and i <= 152 or i >= 207 and i <= 212 or i >= 267 and i <= 272 or i >= 328 and i <= 331:
+            leds[i] = rand_colour #when the range is between the values listed above change colour to the initial random generated colour
+            client.put_pixels(leds)
+            sleep(0.01)
+            client.put_pixels([rgb]*360) #sends out
+            sleep(0.1)
+            
+    answer = messagebox.askquestion(title = 'Confirmation', message  = 'Do you wish to continue? ')
+    #if yes start the building once again
+    if answer == 'yes':
+        build()       
 
 def blink():
 
@@ -213,6 +267,7 @@ def blink():
     #if yes start the building once again
     if answer == 'yes':
         build()
+
 
 #---------------------------------------------------------Curtain Animation-----------------------------------------------------------------------------------------------
 def reverse():
@@ -411,6 +466,7 @@ def decision():
             client.put_pixels(leds)
             sleep(0.1)
 
+    #repeated code from above
     if computer == 'R':
         
         led = 0
@@ -432,7 +488,9 @@ def decision():
     if choice == 'S':
         
         led = 0
-        
+
+        #creates a diagonal shape when led increments
+        #starting point from right to left
         for rows in range(3):
             leds[led+48 + rows*60] = (0,255,255)
             led += 1
@@ -456,9 +514,11 @@ def decision():
 
     if computer == 'S':
         led = 0
-        
-        for rows in range(3):
-            leds[led+10 + rows*60] = (0,255,255)
+
+        #creates a diagonal shape when led increments
+        #repeated code from above with different starting points (left to right)
+        for rows in range(3): #access three rows 
+            leds[led+10 + rows*60] = (0,255,255) 
             led += 1
             client.put_pixels(leds)
         for rows in range(3):
@@ -466,7 +526,7 @@ def decision():
             led -= 1
             client.put_pixels(leds)
         for rows in range(1,6):
-            leds[led+8 + rows*60] = (0,255,255)
+            leds[led+8 + rows*60] = (0,255,255) 
             led += 1
             client.put_pixels(leds)
         for rows in range(1,6):
@@ -497,14 +557,16 @@ def decision():
         
         led = 0
 
-        for rows in range(6):
+        #
+        for rows in range(6): #body of led
             leds[11-rows] = (255,255,255)
             leds[311-rows] = (255,255,255)
             client.put_pixels(leds)
             sleep(0.1)
             
-        for i in range(10):
-            for rows in range(6):
+        for i in range(10): #body of led
+            for rows in range(6): #access all rows
+                #simultaneously run all six rows starting point to end point
                 leds[i+4 + rows*60] = (255,255,255)
                 leds[5-led + rows*60] = (255,255,255)
             client.put_pixels(leds)
@@ -552,6 +614,6 @@ Eye = Button(root, text = 'Eye Animation', command = build).grid(row = 4, column
 TTT = Button(root, text = 'Curtain Animation', command = build1).grid(row = 2, column = 1) 
 Heart = Button(root, text = 'Heart Animation', command = colour_merge).grid(row = 4, column = 1)
 Random = Button(root, text = 'Colour Picker Animation', command = colour_pick).grid(row = 2, column = 2)
-RPM = Button(root, text = 'Rock Paper Scissors Animation', command = decision).grid(row = 4, column = 2)
+RPM = Button(root, text = 'Rock Paper Scissors', command = decision).grid(row = 4, column = 2)
 
 root.mainloop() #allows the window to run infinite to be able to see the window
